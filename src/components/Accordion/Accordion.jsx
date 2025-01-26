@@ -24,11 +24,11 @@ function Accordion() {
   }
   return (
     <>
-      <div className='grid h-screen place-items-center bg-blue-200'>
-        <div className='mx-auto flex flex-col space-y-4 p-4'>
+      <div className='place-items-center grid bg-blue-200 h-screen'>
+        <div className='flex flex-col space-y-4 mx-auto p-4'>
           <button
             onClick={toggleMultSelection}
-            className='w-[240px] self-center py-2 bg-blue-400 text-white font-semibold rounded-lg shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400'
+            className='bg-blue-400 hover:bg-blue-600 shadow-md py-2 rounded-lg focus:ring-2 focus:ring-blue-400 w-[240px] font-semibold text-white focus:outline-none self-center'
           >
             {!enableMultiSelection ? 'Enable' : 'Disable'} Multi Selection
           </button>
@@ -38,7 +38,7 @@ function Accordion() {
               data.map((dataItem) => (
                 <div key={dataItem.id}>
                   <div
-                    className='flex flex-row justify-between text-lg bg-green-400 px-5 py-3'
+                    className='flex flex-row justify-between bg-green-400 px-5 py-3 text-lg'
                     onClick={
                       enableMultiSelection
                         ? () => handleMultiSelect(dataItem.id)
@@ -50,7 +50,7 @@ function Accordion() {
                   </div>
                   {singleSelected == dataItem.id ||
                   multiSelected.indexOf(dataItem.id) !== -1 ? (
-                    <p className='text-sm px-5 pb-3 bg-green-400'>
+                    <p className='bg-green-400 px-5 pb-3 text-sm'>
                       {dataItem.answer}
                     </p>
                   ) : null}
