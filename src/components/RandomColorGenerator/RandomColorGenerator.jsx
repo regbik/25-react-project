@@ -1,26 +1,27 @@
 import { useState } from 'react';
-import { useRef } from 'react';
 
 function RandomColorGenerator() {
   const [bgColorValue, setBgColorValue] = useState('#dcc4d9');
-  const colorOptRef = useRef('hex');
+  const [colorOption, setColorOption] = useState('hex');
 
   function generateRandomColor() {
     let selectedColor;
-    if (colorOptRef.current === 'rgb') {
+    if (colorOption === 'rgb') {
       let r = Math.floor(Math.random() * 255);
       let g = Math.floor(Math.random() * 255);
       let b = Math.floor(Math.random() * 255);
-      selectedColor = `rgb(${r}, ${g}, ${b})`;
-    } else if (colorOptRef.current === 'hex') {
+      selectedColor = `rgb(${r}, ${g}, ${b})`.toUpperCase();
+    } else if (colorOption === 'hex') {
       let randHexColor = Math.floor(Math.random() * 16777215).toString(16);
-      selectedColor = `#${randHexColor}`;
+      selectedColor = `#${randHexColor}`.toUpperCase();
     }
     setBgColorValue(selectedColor);
   }
 
-  function changeColorOption(clickedColorOption) {
-    colorOptRef.current = clickedColorOption;
+  function changeColorOption(selectedColorOption) {
+    if (colorOption !== selectedColorOption) {
+      setColorOption(selectedColorOption);
+    }
   }
 
   return (
@@ -38,7 +39,7 @@ function RandomColorGenerator() {
           </button>
           <button
             className={`hover:bg-amber-200 px-4 py-2 rounded-lg cursor-pointer outline ${
-              colorOptRef.current === 'hex' ? 'bg-amber-300' : 'bg-amber-100'
+              colorOption === 'hex' ? 'bg-amber-300' : 'bg-amber-100'
             }`}
             onClick={() => changeColorOption('hex')}
           >
@@ -46,7 +47,7 @@ function RandomColorGenerator() {
           </button>
           <button
             className={`hover:bg-amber-200 px-4 py-2 rounded-lg cursor-pointer outline ${
-              colorOptRef.current === 'rgb' ? 'bg-amber-300' : 'bg-amber-100'
+              colorOption === 'rgb' ? 'bg-amber-300' : 'bg-amber-100'
             }`}
             onClick={() => changeColorOption('rgb')}
           >
@@ -54,13 +55,13 @@ function RandomColorGenerator() {
           </button>
         </div>
         <div
-          className='gap-3 grid grid-cols-[160px_270px] font-bold text-3xl text-black text-left'
+          className='flex flex-col space-y-3 font-bold text-3xl text-black text-center'
           style={{
             textShadow:
-              '-1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white, 1px 1px 0 white',
+              '-0.5px -0.5px 0 white, 0.5px -0.5px 0 white, -0.5px 0.5px 0 white, 0.5px 0.5px 0 white',
           }}
         >
-          <p>{colorOptRef.current === 'hex' ? 'HEX Value:' : 'RGB Value:'}</p>
+          <p>Current Color:</p>
           <p>{bgColorValue}</p>
         </div>
       </div>
